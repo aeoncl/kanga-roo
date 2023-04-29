@@ -455,9 +455,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.56999993}
+  m_Offset: {x: 0, y: -0.5266599}
   serializedVersion: 2
-  m_Radius: 0.46115
+  m_Radius: 0.50448996
 --- !u!1 &1595148678
 GameObject:
   m_ObjectHideFlags: 0
@@ -8282,6 +8282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpPower: 10
+  btnPressTimeout: 0.2
+  btnDoubleTapTimeout: 0.3
 --- !u!4 &2110007961
 Transform:
   m_ObjectHideFlags: 0
