@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 824845324}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,8 +156,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.014033109, y: -0.32925844}
-  m_Size: {x: 0.7993857, y: 1.2627027}
+  m_Offset: {x: -0.031716555, y: -0.33843732}
+  m_Size: {x: 0.86912984, y: 1.3426156}
   m_Direction: 0
 --- !u!114 &824845325
 MonoBehaviour:
@@ -197,7 +197,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   initalJumpForce: 15
   gravityOnRelease: 10
-  Speed: 6
+  Speed: 4
 --- !u!50 &824845326
 Rigidbody2D:
   serializedVersion: 4
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AssetsPPU: 32
   m_RefResolutionX: 640
-  m_RefResolutionY: 392
+  m_RefResolutionY: 360
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 2110002993}
   m_Layer: 0
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7748,10 +7748,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2110007961}
-  - component: {fileID: 2110007960}
   - component: {fileID: 2110007959}
   - component: {fileID: 2110007958}
   - component: {fileID: 2110007957}
+  - component: {fileID: 2110007960}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Untagged
@@ -7790,11 +7790,11 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.004941523, y: -0.022236884}
-  m_Size: {x: 0.687778, y: 0.9258771}
+  m_Offset: {x: 0.00090664625, y: -0.017925411}
+  m_Size: {x: 0.67360175, y: 0.871983}
   m_Direction: 0
 --- !u!212 &2110007959
 SpriteRenderer:
@@ -7868,7 +7868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110007956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.22, y: 0.95, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
