@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
 
+    private SpriteRenderer _renderer;
+
     //Jump Stuff 
     public AnimationCurve gravityRise;
 
@@ -35,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        this._renderer = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
@@ -52,14 +56,28 @@ public class PlayerMovement : MonoBehaviour
             this.jumpPressed = false;
         }
 
+        var isDashAvaillable = this.isDashAvaillable();
+
         if(Input.GetButtonDown("Dash")) {
 
-            if(this.dashStarted == 0 || (this.dashStarted - Time.time) <= -dashCooldown) {
+            if(isDashAvaillable) {
                 this.dashStarted = Time.time;
                 this.dash = true;
             }
-        }
+        }  
 
+        if(this.rawHorizontal != 0 ){
+            this._renderer.flipX = this.rawHorizontal < 0;
+        }
+    }
+
+
+    float getSpriteOrientation() {
+        return this._renderer.flipX ? -1 : 1;
+    }
+
+    bool isDashAvaillable() {
+        return this.dashStarted == 0 || (this.dashStarted - Time.time) <= -dashCooldown;
     }
 
     /// <summary>
@@ -86,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(this.dash && (this.dashStarted - Time.time) >= -this.dashDuration) {
-            vel.x = this.rawHorizontal * dashPower * Time.fixedDeltaTime;
+            vel.x = this.getSpriteOrientation() * dashPower * Time.fixedDeltaTime;
         } else {
             this.dash = false;
             vel.x = this.movement.x * Time.fixedDeltaTime;
