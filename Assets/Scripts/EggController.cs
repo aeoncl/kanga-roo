@@ -28,7 +28,7 @@ public class EggController : MonoBehaviour
 
             Debug.Log("Delta: " + (this.btnPressTimer - Time.time) + "<= timeout: -"  + "compar: " + ((this.btnPressTimer - Time.time) <= this.btnPressTimeout));
 
-            if(this.btnPressTimer == 0 || this.btnPressTimer <= -btnDoubleTapTimeout) {
+            if(this.btnPressTimer == 0 || (this.btnPressTimer - Time.time) <= -btnDoubleTapTimeout) {
                 this.doUpdate = true;
                 var horizontalAxis = Input.GetAxis("Horizontal");
                 direction = new Vector2(horizontalAxis, 1).normalized;      
