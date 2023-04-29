@@ -28,14 +28,10 @@ public class EggController : MonoBehaviour
             collidesWithPlayer = false;
         }
     }
-
     
-
-
-
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("PlayerHands"))
+        if (other.gameObject.CompareTag("Player"))
         {
             collidesWithPlayer = true;
         }
@@ -49,7 +45,7 @@ public class EggController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("PlayerHands"))
+        if (other.gameObject.CompareTag("Player"))
         {
             collidesWithPlayer = false;
         }    
