@@ -5,11 +5,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float initalJumpForce;
+    public AnimationCurve gravityRise;
+    public AnimationCurve gravityFall;
+    public float gravityOnRelease;
+
+    private float jumpStarted;
+    private Vector2 jumpVel;
+
+
+
+    private bool jumpPressed;
+    private bool jumping;
+
 
     private Rigidbody2D _rb;
 
     public float Speed = 50;
-
 
     private Vector3 movement;
 
@@ -22,9 +34,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         float horizontalInput = Input.GetAxis("Horizontal");
         this.movement = new Vector3(horizontalInput * Speed * 100, 0.0f, 0.0f);
 
+        if (Input.GetButtonDown("Jump")){
+            this.jumpPressed = true;
+        }
+
+        if (Input.GetButtonUp("Jump")){
+            this.jumpPressed = false;
+        }
     }
 
     /// <summary>
@@ -34,6 +55,28 @@ public class PlayerMovement : MonoBehaviour
     {   
 
         var vel = this._rb.velocity;
+
+        if(this.jumpPressed) {
+            if(!this.jumping && vel.y >= -0.9) {
+               this.jumpStarted = Time.time;       
+               this.jumping = true;  
+            }
+        
+        }
+
+        if(this.jumping && (this.jumpStarted - Time.time) > -0.2) {
+            vel.y = this.gravityRise.Evaluate(Time.time - jumpStarted) * initalJumpForce;
+        } else if (this.jumping && (this.jumpStarted - Time.time) > -0.25) {
+            vel.y = 0;
+        }else if (this.jumping) {
+            vel.y = -this.gravityOnRelease;
+            this.jumping = false;
+        }
+
+        // if (vel.y == 0) {
+        //     this.jumping = false;
+        // }
+
         vel.x = this.movement.x * Time.fixedDeltaTime;
         this._rb.velocity = vel;
     }
