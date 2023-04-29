@@ -12,13 +12,20 @@ public class PlayerMovement : MonoBehaviour
 
     public float initalJumpForce;
     public float gravityOnRelease;
+    
+    private float dashStarted;
+    public float dashCooldown;
+    public float dashDuration;
+    public float dashPower;
+    private bool dash;
+
+
     private float jumpStarted;
     private bool jumpPressed;
     private bool jumping;
 
 
-    public float dashAmount;
-    private bool dash;
+    private float rawHorizontal;
 
     //Movement
     public float Speed = 50;
@@ -34,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
+        rawHorizontal = Input.GetAxisRaw("Horizontal");
         this.movement = new Vector3(horizontalInput * Speed * 100, 0.0f, 0.0f);
 
         if (Input.GetButtonDown("Jump")){
@@ -45,11 +53,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(Input.GetButtonDown("Dash")) {
-            this.dash = true;
-        }
 
-        if(Input.GetButtonUp("Dash")) {
-            this.dash = false;
+            if(this.dashStarted == 0 || (this.dashStarted - Time.time) <= -dashCooldown) {
+                this.dashStarted = Time.time;
+                this.dash = true;
+            }
         }
 
     }
@@ -66,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
                this.jumpStarted = Time.time;       
                this.jumping = true;
             }
-        
         }
 
         if(this.jumping && (this.jumpStarted - Time.time) > -0.2) {
@@ -78,16 +85,13 @@ public class PlayerMovement : MonoBehaviour
             this.jumping = false;
         }
 
-        vel.x = this.movement.x * Time.fixedDeltaTime;
-        this._rb.velocity = vel;
-
-        Debug.Log("DASH: " + this.dash + " vel x: " + vel.x);
-        if(this.dash && vel.x != 0) {
-
-            Debug.Log("INSIDE DASH");
-
+        if(this.dash && (this.dashStarted - Time.time) >= -this.dashDuration) {
+            vel.x = this.rawHorizontal * dashPower * Time.fixedDeltaTime;
+        } else {
             this.dash = false;
-            vel.x += (vel.x < 0 ? -this.dashAmount : this.dashAmount);
+            vel.x = this.movement.x * Time.fixedDeltaTime;
         }
+
+        this._rb.velocity = vel;
     }
 }
