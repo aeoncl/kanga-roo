@@ -60,6 +60,7 @@ public class EggController : MonoBehaviour
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
             rigidBody.AddForce(direction * jumpPower, ForceMode2D.Impulse);
+            rigidBody.AddTorque(10f);
             collidesWithPlayer = false;
         }
     }
