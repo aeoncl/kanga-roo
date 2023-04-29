@@ -17,7 +17,7 @@ public class EggController : MonoBehaviour
         var horizontalAxis = Input.GetAxis("Horizontal");
         direction = new Vector2(horizontalAxis, 1).normalized;
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
