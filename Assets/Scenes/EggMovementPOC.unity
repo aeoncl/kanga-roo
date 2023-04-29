@@ -197,6 +197,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   initalJumpForce: 15
   gravityOnRelease: 10
+  dashAmount: 1000
   Speed: 4
 --- !u!50 &824845326
 Rigidbody2D:

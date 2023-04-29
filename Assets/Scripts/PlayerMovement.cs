@@ -16,7 +16,9 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpPressed;
     private bool jumping;
 
-    private bool IsGrounded;
+
+    public float dashAmount;
+    private bool dash;
 
     //Movement
     public float Speed = 50;
@@ -41,6 +43,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonUp("Jump")){
             this.jumpPressed = false;
         }
+
+        if(Input.GetButtonDown("Dash")) {
+            this.dash = true;
+        }
+
+        if(Input.GetButtonUp("Dash")) {
+            this.dash = false;
+        }
+
     }
 
     /// <summary>
@@ -69,5 +80,14 @@ public class PlayerMovement : MonoBehaviour
 
         vel.x = this.movement.x * Time.fixedDeltaTime;
         this._rb.velocity = vel;
+
+        Debug.Log("DASH: " + this.dash + " vel x: " + vel.x);
+        if(this.dash && vel.x != 0) {
+
+            Debug.Log("INSIDE DASH");
+
+            this.dash = false;
+            vel.x += (vel.x < 0 ? -this.dashAmount : this.dashAmount);
+        }
     }
 }
