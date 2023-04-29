@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EggController : MonoBehaviour
 {
+    [SerializeField] private float jumpPower = 10;
+    
     private Rigidbody2D rigidBody;
     private Vector2 direction;
 
@@ -19,7 +21,7 @@ public class EggController : MonoBehaviour
         {
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
-            rigidBody.AddForce(direction * 10, ForceMode2D.Impulse);
+            rigidBody.AddForce(direction * jumpPower, ForceMode2D.Impulse);
             rigidBody.AddTorque(10f);
         }
     }
