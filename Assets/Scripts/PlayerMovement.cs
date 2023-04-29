@@ -5,24 +5,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float initalJumpForce;
+    private Rigidbody2D _rb;
+
+    //Jump Stuff 
     public AnimationCurve gravityRise;
-    public AnimationCurve gravityFall;
+
+    public float initalJumpForce;
     public float gravityOnRelease;
-
     private float jumpStarted;
-    private Vector2 jumpVel;
-
-
-
     private bool jumpPressed;
     private bool jumping;
 
+    private bool IsGrounded;
 
-    private Rigidbody2D _rb;
-
+    //Movement
     public float Speed = 50;
-
     private Vector3 movement;
 
     // Start is called before the first frame update
@@ -34,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         float horizontalInput = Input.GetAxis("Horizontal");
         this.movement = new Vector3(horizontalInput * Speed * 100, 0.0f, 0.0f);
 
@@ -53,13 +48,12 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {   
-
         var vel = this._rb.velocity;
 
         if(this.jumpPressed) {
             if(!this.jumping && vel.y >= -0.9) {
                this.jumpStarted = Time.time;       
-               this.jumping = true;  
+               this.jumping = true;
             }
         
         }
@@ -72,10 +66,6 @@ public class PlayerMovement : MonoBehaviour
             vel.y = -this.gravityOnRelease;
             this.jumping = false;
         }
-
-        // if (vel.y == 0) {
-        //     this.jumping = false;
-        // }
 
         vel.x = this.movement.x * Time.fixedDeltaTime;
         this._rb.velocity = vel;
