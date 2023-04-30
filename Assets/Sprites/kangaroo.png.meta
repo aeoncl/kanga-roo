@@ -14,6 +14,12 @@ TextureImporter:
   - first:
       213: 1017530714370438874
     second: kangaroo_3
+  - first:
+      213: -6099834874820539613
+    second: kangaroo_4
+  - first:
+      213: -3875872169143230268
+    second: kangaroo_5
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -183,6 +189,48 @@ TextureImporter:
       bones: []
       spriteID: ad6791a2bcefe1e00800000000000000
       internalID: 1017530714370438874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kangaroo_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32b48c9ef78095ba0800000000000000
+      internalID: -6099834874820539613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kangaroo_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c025632cc2263ac0800000000000000
+      internalID: -3875872169143230268
       vertices: []
       indices: 
       edges: []

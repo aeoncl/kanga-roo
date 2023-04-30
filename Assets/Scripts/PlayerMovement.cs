@@ -2,17 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
-
+    private Animator _animator;
     private SpriteRenderer _renderer;
 
     //Jump Stuff 
     public AnimationCurve gravityRise;
 
-    public float initalJumpForce;
+    public float initialJumpForce;
     public float gravityOnRelease;
     
     private float dashStarted;
@@ -21,13 +22,29 @@ public class PlayerMovement : MonoBehaviour
     public float dashPower;
     private bool dash;
 
-
     private float jumpStarted;
     private bool jumpPressed;
+    
     private bool jumping;
 
+    public bool Jumping
+    {
+        set
+        {
+            jumping = value;
+            _animator.SetBool("IsJumping", value);
+        }
+    }
 
     private float rawHorizontal;
+    public float RawHorizontal
+    {
+        set
+        {
+            rawHorizontal = value;
+            _animator.SetFloat("Speed", Mathf.Abs(value));
+        }
+    }
 
     //Movement
     public float Speed = 50;
@@ -38,14 +55,14 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         this._renderer = GetComponent<SpriteRenderer>();
-
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        rawHorizontal = Input.GetAxisRaw("Horizontal");
+        RawHorizontal = Input.GetAxisRaw("Horizontal");
         this.movement = new Vector3(horizontalInput * Speed * 100, 0.0f, 0.0f);
 
         if (Input.GetButtonDown("Jump")){
@@ -90,17 +107,17 @@ public class PlayerMovement : MonoBehaviour
         if(this.jumpPressed) {
             if(!this.jumping && vel.y >= -0.9) {
                this.jumpStarted = Time.time;       
-               this.jumping = true;
+               this.Jumping = true;
             }
-        }
+        }   
 
         if(this.jumping && (this.jumpStarted - Time.time) > -0.2) {
-            vel.y = this.gravityRise.Evaluate(Time.time - jumpStarted) * initalJumpForce;
-        } else if (this.jumping && (this.jumpStarted - Time.time) > -0.25) {
+            vel.y = this.gravityRise.Evaluate(Time.time - jumpStarted) * initialJumpForce;
+        } else if (this.jumping && (this.jumpStarted - Time.time) > -0.25)
+        {
             vel.y = 0;
-        }else if (this.jumping) {
+        } else if (this.jumping) {
             vel.y = -this.gravityOnRelease;
-            this.jumping = false;
         }
 
         if(this.dash && (this.dashStarted - Time.time) >= -this.dashDuration) {
@@ -111,5 +128,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         this._rb.velocity = vel;
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ground"))
+        {
+            Jumping = false;
+        }
     }
 }
