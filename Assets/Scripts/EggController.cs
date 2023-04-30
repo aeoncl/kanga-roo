@@ -35,8 +35,9 @@ public class EggController : MonoBehaviour
 
             if (this.btnPressTimer == 0 || (this.btnPressTimer - Time.time) <= -btnDoubleTapTimeout)
             {
+                playerAnimator.SetTrigger("IsAttacking");
+                playerAnimator.SetBool("IsJumping", false);
 
-                playerAnimator.SetBool("IsAttacking", true);
                 this.doUpdate = true;
                 var horizontalAxis = Input.GetAxis("Horizontal");
                 direction = new Vector2(horizontalAxis, 1).normalized;
@@ -51,7 +52,6 @@ public class EggController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.E) || (this.btnPressTimer - Time.time) <= -btnPressTimeout)
         {
             Debug.Log("STOP UPDATE");
-            playerAnimator.SetBool("IsAttacking", false);
             this.doUpdate = false;
         }
     }
