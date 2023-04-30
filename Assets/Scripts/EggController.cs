@@ -82,11 +82,16 @@ public class EggController : MonoBehaviour
         {
             collidesWithPlayer = true;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.gameObject.CompareTag("Ground"))
         {
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
             rigidBody.bodyType = RigidbodyType2D.Static;
+            SceneController.LoadGameOverScene();
         }
     }
 
