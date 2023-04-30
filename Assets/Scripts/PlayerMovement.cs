@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float initialJumpForce;
     public float gravityOnRelease;
-    
+
     private float dashStarted;
     public float dashCooldown;
     public float dashDuration;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float jumpStarted;
     private bool jumpPressed;
-    
+
     private bool jumping;
 
     public bool Jumping
@@ -67,6 +67,10 @@ public class PlayerMovement : MonoBehaviour
     public float Speed = 50;
     private Vector3 movement;
 
+    public float windMultiplier = 10;
+
+    private bool isInWind = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,37 +86,45 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         RawHorizontal = Input.GetAxisRaw("Horizontal");
+
         this.movement = new Vector3(horizontalInput * Speed * 100, 0.0f, 0.0f);
 
-        if (Input.GetButtonDown("Jump")){
+        if (Input.GetButtonDown("Jump"))
+        {
             this.jumpPressed = true;
         }
 
-        if (Input.GetButtonUp("Jump")){
+        if (Input.GetButtonUp("Jump"))
+        {
             this.jumpPressed = false;
         }
 
         var isDashAvaillable = this.isDashAvaillable();
 
-        if(Input.GetButtonDown("Dash")) {
+        if (Input.GetButtonDown("Dash"))
+        {
 
-            if(isDashAvaillable) {
+            if (isDashAvaillable)
+            {
                 this.dashStarted = Time.time;
                 Dashing = true;
             }
-        }  
+        }
 
-        if(this.rawHorizontal != 0 ){
+        if (this.rawHorizontal != 0)
+        {
             this._renderer.flipX = this.rawHorizontal < 0;
         }
     }
 
 
-    float getSpriteOrientation() {
+    float getSpriteOrientation()
+    {
         return this._renderer.flipX ? -1 : 1;
     }
 
-    bool isDashAvaillable() {
+    bool isDashAvaillable()
+    {
         return this.dashStarted == 0 || (this.dashStarted - Time.time) <= -dashCooldown;
     }
 
@@ -120,13 +132,15 @@ public class PlayerMovement : MonoBehaviour
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     /// </summary>
     void FixedUpdate()
-    {   
+    {
         var vel = this._rb.velocity;
 
-        if(this.jumpPressed) {
-            if(!this.jumping) {
-               this.jumpStarted = Time.time;       
-               this.Jumping = true;
+        if (this.jumpPressed)
+        {
+            if (!this.jumping)
+            {
+                this.jumpStarted = Time.time;
+                this.Jumping = true;
             }
         }
 
@@ -135,31 +149,46 @@ public class PlayerMovement : MonoBehaviour
         var collidesWithGroundDebug = collidesWithGround();
         Debug.Log("CollidesWithGrounDebug: " + collidesWithGroundDebug);
 
-        if(this.jumping && (this.jumpStarted - Time.time) > -0.2) {
+        if (this.jumping && (this.jumpStarted - Time.time) > -0.2)
+        {
             vel.y = this.gravityRise.Evaluate(Time.time - jumpStarted) * initialJumpForce;
-        } else if (this.jumping && (this.jumpStarted - Time.time) > -0.3)
+        }
+        else if (this.jumping && (this.jumpStarted - Time.time) > -0.3)
         {
             vel.y = 0;
-        } else if (this.jumping && collidesWithGroundDebug){
+        }
+        else if (this.jumping && collidesWithGroundDebug)
+        {
             Debug.Log("STOPPED JUMP");
             vel.y = 0;
             Jumping = false;
-        }else if (this.jumping) {
+        }
+        else if (this.jumping)
+        {
             vel.y = -this.gravityOnRelease;
         }
 
-        if(this.dash && (this.dashStarted - Time.time) >= -this.dashDuration) {
+        if (this.dash && (this.dashStarted - Time.time) >= -this.dashDuration)
+        {
             vel.x = this.getSpriteOrientation() * dashPower * Time.fixedDeltaTime;
-        } else {
+        }
+        else
+        {
             Dashing = false;
-            vel.x = this.movement.x * Time.fixedDeltaTime;
+
+            if(this.isInWind) {
+                vel.x = (this.movement.x * Time.fixedDeltaTime) + windMultiplier;
+            } else {
+                vel.x = this.movement.x * Time.fixedDeltaTime;
+            }
         }
 
         this._rb.velocity = vel;
     }
 
 
-    private bool collidesWithGround() {
+    private bool collidesWithGround()
+    {
         var position = this.sensor.position;
         var forward = Vector2.down;
         Debug.Log("forward: " + forward.x + " - " + forward.y);
@@ -169,10 +198,24 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D col)
+
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (col.gameObject.CompareTag("Ground"))
+
+        if (other.gameObject.CompareTag("Wind"))
         {
+            this.isInWind = true;
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+
+        if (other.gameObject.CompareTag("Wind"))
+        {
+            this.isInWind = false;
         }
     }
 }

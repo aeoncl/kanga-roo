@@ -11,11 +11,17 @@ public class EggController : MonoBehaviour
 
     private bool doUpdate = false;
 
+
+
     private float btnPressTimer;
 
     public float btnPressTimeout = 0.5f;
     public float btnDoubleTapTimeout = 0.5f;
     public float torque = 10f;
+
+    public float windMultiplier = 10;
+
+    private bool isInWind = false;
 
     public Animator playerAnimator;
 
@@ -74,6 +80,21 @@ public class EggController : MonoBehaviour
             rigidBody.AddTorque(this.torque);
             collidesWithPlayer = false;
         }
+
+        if(this.isInWind) {
+
+                Debug.Log("Velocity x: " + rigidBody.velocity.x);
+
+                if(rigidBody.velocity.x >= 0) {
+                    rigidBody.velocity = Vector2.zero;
+                    rigidBody.angularVelocity = 0f;
+                    rigidBody.gravityScale = 0;
+                    //rigidBody.AddTorque(this.torque);
+                    rigidBody.AddForce((Vector2.right) * windMultiplier);
+                } else {
+                    rigidBody.AddForce((Vector2.right) / 4, ForceMode2D.Impulse);
+                }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -93,6 +114,11 @@ public class EggController : MonoBehaviour
             rigidBody.bodyType = RigidbodyType2D.Static;
             SceneController.LoadGameOverScene();
         }
+
+        if (other.gameObject.CompareTag("Wind")) {
+            this.isInWind = true;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -101,6 +127,13 @@ public class EggController : MonoBehaviour
         {
             collidesWithPlayer = false;
             btnPressTimer = 0;
+        }
+
+        
+        if (other.gameObject.CompareTag("Wind")) {
+            this.isInWind = false;
+            rigidBody.gravityScale = 1;
+            rigidBody.velocity -= new Vector2(2,2);
         }
     }
 }

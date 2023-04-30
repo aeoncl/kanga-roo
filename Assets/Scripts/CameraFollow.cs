@@ -24,7 +24,7 @@ public class CameraFollow : MonoBehaviour
     void FixedUpdate()
     {
         if(eggTransform.position.y >= (this.initialY + this.eggUpperLimitFollow)) {
-            var test = Vector3.Lerp(this.transform.position, eggTransform.position - new Vector3(0,3.5f,0), Time.fixedDeltaTime * 2);
+            var test = Vector3.Lerp(this.transform.position, eggTransform.position - new Vector3(0,3.5f,0), Time.fixedDeltaTime * 3);
             this.transform.position = new Vector3(followTransform.position.x, test.y, this.transform.position.z);
         } else {
             var initialYLerp = Mathf.Lerp(this.transform.position.y, this.initialY, Time.fixedDeltaTime * 2);
