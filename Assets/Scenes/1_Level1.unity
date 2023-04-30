@@ -787,7 +787,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4832658c2fc12eb4c845b29b22032f0d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -827,7 +827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863948185}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 10}
+  m_LocalPosition: {x: 0, y: -0.1, z: 100}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 1595148683}
@@ -26705,6 +26705,7 @@ MonoBehaviour:
   followTransform: {fileID: 824845328}
   eggTransform: {fileID: 2110007961}
   eggUpperLimitFollow: 4
+  parallaxSpeed: 1
 --- !u!114 &1595148680
 MonoBehaviour:
   m_ObjectHideFlags: 0
