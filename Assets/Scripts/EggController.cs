@@ -11,7 +11,7 @@ public class EggController : MonoBehaviour
 
     private bool doUpdate = false;
 
-
+    private bool isLaunched = false;
 
     private float btnPressTimer;
 
@@ -30,12 +30,21 @@ public class EggController : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        Time.timeScale = 0f;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if (!isLaunched)
+            {
+                Time.timeScale = 1f;
+                rigidBody.bodyType = RigidbodyType2D.Dynamic;
+                rigidBody.AddForce(new Vector2(0.5f, 0.5f) * jumpPower, ForceMode2D.Impulse);
+                rigidBody.AddTorque(this.torque);
+                isLaunched = true;
+            }
 
             Debug.Log("Delta: " + (this.btnPressTimer - Time.time) + "<= timeout: -" + "compar: " + ((this.btnPressTimer - Time.time) <= this.btnPressTimeout));
 
