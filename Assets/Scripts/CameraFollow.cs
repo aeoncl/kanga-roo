@@ -7,10 +7,16 @@ public class CameraFollow : MonoBehaviour
 
     public Transform followTransform;
 
+    public Transform eggTransform;
+
+    private float initialY;
+
+    public float eggUpperLimitFollow = 4;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+       this.initialY = this.transform.position.y;
     }
 
     // Update is called once per frame
@@ -24,6 +30,13 @@ public class CameraFollow : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        this.transform.position = new Vector3(followTransform.position.x, this.transform.position.y, this.transform.position.z);
+        if(eggTransform.position.y >= (this.initialY + this.eggUpperLimitFollow)) {
+        var test = Vector3.Lerp(this.transform.position, eggTransform.position - new Vector3(0,3.5f,0), Time.fixedDeltaTime * 2);
+        this.transform.position = new Vector3(followTransform.position.x, test.y, this.transform.position.z);
+        } else {
+            var initialYLerp = Mathf.Lerp(this.transform.position.y, this.initialY, Time.fixedDeltaTime * 2);
+            this.transform.position = new Vector3(followTransform.position.x, initialYLerp, this.transform.position.z);
+        }
+        
     }
 }
