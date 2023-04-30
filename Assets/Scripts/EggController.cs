@@ -15,6 +15,7 @@ public class EggController : MonoBehaviour
 
     public float btnPressTimeout = 0.5f;
     public float btnDoubleTapTimeout = 0.5f;
+    public float torque = 10f;
 
 
     private void Awake()
@@ -60,7 +61,7 @@ public class EggController : MonoBehaviour
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
             rigidBody.AddForce(direction * jumpPower, ForceMode2D.Impulse);
-            rigidBody.AddTorque(10f);
+            rigidBody.AddTorque(this.torque);
             collidesWithPlayer = false;
         }
     }
