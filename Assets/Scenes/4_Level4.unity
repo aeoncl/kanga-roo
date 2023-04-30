@@ -1088,7 +1088,7 @@ Tilemap:
       - {fileID: -1387331921383137420, guid: 0a179a6069c26a249b709d88bafac72f, type: 3}
       - {fileID: 1714587572013046209, guid: 0a179a6069c26a249b709d88bafac72f, type: 3}
       - {fileID: 4418870476218435729, guid: 0a179a6069c26a249b709d88bafac72f, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 33, y: 9, z: 0}
@@ -1238,7 +1238,7 @@ Tilemap:
       - {fileID: -1387331921383137420, guid: 0a179a6069c26a249b709d88bafac72f, type: 3}
       - {fileID: 1714587572013046209, guid: 0a179a6069c26a249b709d88bafac72f, type: 3}
       - {fileID: 4418870476218435729, guid: 0a179a6069c26a249b709d88bafac72f, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 113, y: 14, z: 0}
@@ -33582,6 +33582,7 @@ GameObject:
   - component: {fileID: 2110007958}
   - component: {fileID: 2110007957}
   - component: {fileID: 2110007960}
+  - component: {fileID: 2110007962}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Egg
