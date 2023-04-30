@@ -4,7 +4,7 @@ using UnityEngine;
 public class EggController : MonoBehaviour
 {
     [SerializeField] private float jumpPower = 10;
-    
+
     private Rigidbody2D rigidBody;
     private Vector2 direction;
     private bool collidesWithPlayer;
@@ -17,6 +17,9 @@ public class EggController : MonoBehaviour
     public float btnDoubleTapTimeout = 0.5f;
     public float torque = 10f;
 
+    public Animator playerAnimator;
+
+
 
     private void Awake()
     {
@@ -25,24 +28,30 @@ public class EggController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
 
-            Debug.Log("Delta: " + (this.btnPressTimer - Time.time) + "<= timeout: -"  + "compar: " + ((this.btnPressTimer - Time.time) <= this.btnPressTimeout));
+            Debug.Log("Delta: " + (this.btnPressTimer - Time.time) + "<= timeout: -" + "compar: " + ((this.btnPressTimer - Time.time) <= this.btnPressTimeout));
 
-            if(this.btnPressTimer == 0 || (this.btnPressTimer - Time.time) <= -btnDoubleTapTimeout) {
+            if (this.btnPressTimer == 0 || (this.btnPressTimer - Time.time) <= -btnDoubleTapTimeout)
+            {
+
+                playerAnimator.SetBool("IsAttacking", true);
                 this.doUpdate = true;
                 var horizontalAxis = Input.GetAxis("Horizontal");
-                direction = new Vector2(horizontalAxis, 1).normalized;      
+                direction = new Vector2(horizontalAxis, 1).normalized;
                 this.btnPressTimer = Time.time;
                 Debug.Log("DO UPDATE");
             }
 
 
-        } 
+        }
 
 
-        if(Input.GetKeyUp(KeyCode.E) || (this.btnPressTimer - Time.time) <= -btnPressTimeout) {
+        if (Input.GetKeyUp(KeyCode.E) || (this.btnPressTimer - Time.time) <= -btnPressTimeout)
+        {
             Debug.Log("STOP UPDATE");
+            playerAnimator.SetBool("IsAttacking", false);
             this.doUpdate = false;
         }
     }
@@ -55,7 +64,8 @@ public class EggController : MonoBehaviour
 
         Debug.Log("DoUpdate: " + doUpdate + " CollidesWithPlayer: " + collidesWithPlayer + " check: " + (this.btnPressTimer - Time.time) + " timeout: " + this.btnDoubleTapTimeout);
 
-        if(doUpdate && collidesWithPlayer) {
+        if (doUpdate && collidesWithPlayer)
+        {
 
             Debug.Log("FixedUpdate!");
             rigidBody.velocity = Vector2.zero;
@@ -86,6 +96,6 @@ public class EggController : MonoBehaviour
         {
             collidesWithPlayer = false;
             btnPressTimer = 0;
-        }    
+        }
     }
 }

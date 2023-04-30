@@ -6,9 +6,15 @@ using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public Transform sensor;
+
+    private int environmentLayerMask; // Layer for raycast to hit
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _renderer;
+
+    private Transform _transform;
 
     //Jump Stuff 
     public AnimationCurve gravityRise;
@@ -21,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public float dashDuration;
     public float dashPower;
     private bool dash;
+
+    public float groundCheckDistance = 0.2f;
 
     public bool Dashing
     {
@@ -65,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         this._renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        this._transform = GetComponent<Transform>();
+        this.environmentLayerMask = LayerMask.GetMask("Environment");
     }
 
     // Update is called once per frame
@@ -95,12 +105,6 @@ public class PlayerMovement : MonoBehaviour
         if(this.rawHorizontal != 0 ){
             this._renderer.flipX = this.rawHorizontal < 0;
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            _animator.SetTrigger("IsAttacking");
-            _animator.SetBool("IsJumping", false);
-        }
     }
 
 
@@ -120,18 +124,27 @@ public class PlayerMovement : MonoBehaviour
         var vel = this._rb.velocity;
 
         if(this.jumpPressed) {
-            if(!this.jumping && vel.y >= -0.9) {
+            if(!this.jumping) {
                this.jumpStarted = Time.time;       
                this.Jumping = true;
             }
-        }   
+        }
+
+
+
+        var collidesWithGroundDebug = collidesWithGround();
+        Debug.Log("CollidesWithGrounDebug: " + collidesWithGroundDebug);
 
         if(this.jumping && (this.jumpStarted - Time.time) > -0.2) {
             vel.y = this.gravityRise.Evaluate(Time.time - jumpStarted) * initialJumpForce;
         } else if (this.jumping && (this.jumpStarted - Time.time) > -0.25)
         {
             vel.y = 0;
-        } else if (this.jumping) {
+        } else if (this.jumping && collidesWithGroundDebug){
+            Debug.Log("STOPPED JUMP");
+            vel.y = 0;
+            Jumping = false;
+        }else if (this.jumping) {
             vel.y = -this.gravityOnRelease;
         }
 
@@ -145,11 +158,21 @@ public class PlayerMovement : MonoBehaviour
         this._rb.velocity = vel;
     }
 
+
+    private bool collidesWithGround() {
+        var position = this.sensor.position;
+        var forward = Vector2.down;
+        Debug.Log("forward: " + forward.x + " - " + forward.y);
+        Debug.DrawRay(position, forward, Color.red, groundCheckDistance);
+        var hit = Physics2D.Raycast(position, forward, groundCheckDistance, this.environmentLayerMask);
+        return hit.collider != null;
+    }
+
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Ground"))
         {
-            Jumping = false;
         }
     }
 }
