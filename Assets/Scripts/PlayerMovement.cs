@@ -95,6 +95,12 @@ public class PlayerMovement : MonoBehaviour
         if(this.rawHorizontal != 0 ){
             this._renderer.flipX = this.rawHorizontal < 0;
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _animator.SetTrigger("IsAttacking");
+            _animator.SetBool("IsJumping", false);
+        }
     }
 
 
