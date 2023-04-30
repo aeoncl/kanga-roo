@@ -10,7 +10,6 @@ public class StartTimer : MonoBehaviour
     public bool timerIsRunning = false;
 
     private float elapsedSeconds;
-    private bool elapsed = false;
     public Text timeText;
 
     private System.Timers.Timer timer;

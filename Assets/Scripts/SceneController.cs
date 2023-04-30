@@ -11,7 +11,7 @@ public class SceneController : MonoBehaviour
 
     public static void LoadMainMenu()
     {
-        SceneManager.LoadScene("0MainMenu");
+        SceneManager.LoadScene("0_MainMenu");
     }    
 
     public static void LoadSuccess()
