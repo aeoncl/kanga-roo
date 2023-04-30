@@ -558,7 +558,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1617398928}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: LoadFirstScene
+        m_MethodName: LoadRetry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

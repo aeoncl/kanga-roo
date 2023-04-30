@@ -16,7 +16,7 @@ public class SceneController : MonoBehaviour
 
     public static void LoadSuccess()
     {
-        SceneManager.LoadScene("LevelSuccess", LoadSceneMode.Additive);
+        SceneManager.LoadScene("0_LevelSuccess");
     }
 
     public static void QuitGame()
@@ -25,6 +25,20 @@ public class SceneController : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
         Application.Quit();
+    }
+
+    public static void LoadRetry() {
+        LoadSceneByName(LevelProgressSingleton.Instance.currentLevelName);
+    }
+
+    public static void LoadNextLevelOrTitleScreen() {
+       var singl = LevelProgressSingleton.Instance;
+       if (singl.IsLastLevel()) {
+         LoadMainMenu();
+         //Load end game menu
+       } else {
+        LoadSceneByName(singl.NextLevelName);
+       }
     }
 
     public static void LoadGameOverScene()

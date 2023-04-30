@@ -31,7 +31,13 @@ public class LevelFinish : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Egg"))
         {
-           SceneController.LoadSceneByName(this.nextScene);
+
+            Debug.Log("LEVEL FINISH");
+           var singl = LevelProgressSingleton.Instance;
+           singl.NextLevelName = nextScene;
+           singl.timer = timerResult;
+
+           SceneController.LoadSuccess();
         }
     }
 }
