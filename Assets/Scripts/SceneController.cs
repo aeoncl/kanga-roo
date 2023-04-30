@@ -9,6 +9,16 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene("EggMovementPOC");
     }
 
+    public static void LoadMainMenu()
+    {
+        SceneManager.LoadScene("0MainMenu");
+    }    
+
+    public static void LoadSuccess()
+    {
+        SceneManager.LoadScene("LevelSuccess", LoadSceneMode.Additive);
+    }
+
     public static void QuitGame()
     {
         #if UNITY_EDITOR
