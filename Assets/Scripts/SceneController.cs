@@ -6,7 +6,7 @@ public class SceneController : MonoBehaviour
 {
     public static void LoadFirstScene()
     {
-        SceneManager.LoadScene("EggMovementPOC");
+        SceneManager.LoadScene("1_Level1");
     }
 
     public static void LoadMainMenu()
@@ -29,6 +29,6 @@ public class SceneController : MonoBehaviour
 
     public static void LoadGameOverScene()
     {
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene("0_GameOver");
     }
 }
