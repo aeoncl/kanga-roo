@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/0MainMenu.unity
     guid: f1135d9f75329014e97c9b1b22ac7bac
+  - enabled: 1
+    path: Assets/Scenes/EggMovementPOC.unity
+    guid: 098504e8c64e55743b525f4064756b4c
   m_configObjects: {}
