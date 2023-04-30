@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(this.jumping && (this.jumpStarted - Time.time) > -0.2) {
             vel.y = this.gravityRise.Evaluate(Time.time - jumpStarted) * initialJumpForce;
-        } else if (this.jumping && (this.jumpStarted - Time.time) > -0.25)
+        } else if (this.jumping && (this.jumpStarted - Time.time) > -0.3)
         {
             vel.y = 0;
         } else if (this.jumping && collidesWithGroundDebug){
