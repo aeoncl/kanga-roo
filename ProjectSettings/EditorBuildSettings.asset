@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EggMovementPOC.unity
     guid: 098504e8c64e55743b525f4064756b4c
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: afed5f6e686230a4884e3a0347563f89
   m_configObjects: {}
