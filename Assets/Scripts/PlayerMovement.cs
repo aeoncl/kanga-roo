@@ -22,6 +22,15 @@ public class PlayerMovement : MonoBehaviour
     public float dashPower;
     private bool dash;
 
+    public bool Dashing
+    {
+        set
+        {
+            dash = value;
+            _animator.SetBool("IsDashing", value);
+        }
+    }
+
     private float jumpStarted;
     private bool jumpPressed;
     
@@ -79,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
             if(isDashAvaillable) {
                 this.dashStarted = Time.time;
-                this.dash = true;
+                Dashing = true;
             }
         }  
 
@@ -123,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         if(this.dash && (this.dashStarted - Time.time) >= -this.dashDuration) {
             vel.x = this.getSpriteOrientation() * dashPower * Time.fixedDeltaTime;
         } else {
-            this.dash = false;
+            Dashing = false;
             vel.x = this.movement.x * Time.fixedDeltaTime;
         }
 
