@@ -19,6 +19,9 @@ public class CameraFollow : MonoBehaviour
        this.initialY = this.transform.position.y;
        this._backGroundSprite = transform.GetComponentInChildren<SpriteRenderer>();
        this._lastKnownXPosition = followTransform.position.x;
+
+       var initialPos = new Vector3(followTransform.position.x, this.followTransform.position.y + 1, this.transform.position.z);
+       this.transform.position = initialPos;
     }
 
     bool isEggTooFarFromUs() {
@@ -32,7 +35,7 @@ public class CameraFollow : MonoBehaviour
             var test = Vector3.Lerp(this.transform.position, eggTransform.position - new Vector3(0,3.5f,0), Time.fixedDeltaTime * 3);
             this.transform.position = new Vector3(followTransform.position.x, test.y, this.transform.position.z);
         } else {
-            var initialYLerp = Mathf.Lerp(this.transform.position.y, this.followTransform.position.y, Time.fixedDeltaTime * 2);
+            var initialYLerp = Mathf.Lerp(this.transform.position.y, this.followTransform.position.y + 1, Time.fixedDeltaTime * 2);
             this.transform.position = new Vector3(followTransform.position.x, initialYLerp, this.transform.position.z);
         }
 
