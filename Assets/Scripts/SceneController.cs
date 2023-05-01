@@ -13,6 +13,7 @@ public class SceneController : MonoBehaviour
     {
         LevelProgressSingleton.Instance.destroyedPackages = 0;
         Time.timeScale = 1f;
+        Destroy(MainMusicController.Instance.gameObject);
         SceneManager.LoadScene("0_MainMenu");
     }    
 
