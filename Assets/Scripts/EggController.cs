@@ -125,6 +125,7 @@ public class EggController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Ground"))
         {
+            LevelProgressSingleton.Instance.destroyedPackages++;
             this.audiosource.PlayOneShot(this.boxDestroyedSound);
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;

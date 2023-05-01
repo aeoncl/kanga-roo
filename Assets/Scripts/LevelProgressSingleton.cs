@@ -7,6 +7,7 @@ public class LevelProgressSingleton : PersistentSingleton<LevelProgressSingleton
 
    public string currentLevelName;
    public string NextLevelName;
+   public int destroyedPackages;
 
    public float timer;
 
