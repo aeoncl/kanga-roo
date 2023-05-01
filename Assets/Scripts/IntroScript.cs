@@ -33,7 +33,7 @@ public class IntroScript : MonoBehaviour
         "Hehe...",
     };
 
-    void Awake()
+    void Start()
     {
         textComponent = GetComponent<Text>();
         textToDraw = dialogue[0];
