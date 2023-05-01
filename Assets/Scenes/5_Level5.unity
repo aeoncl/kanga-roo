@@ -817,8 +817,10 @@ MonoBehaviour:
   dashDuration: 0.1
   dashPower: 2000
   groundCheckDistance: 0.2
-  audioSource: {fileID: 0}
-  dashSounds: []
+  audioSource: {fileID: 779221766}
+  dashSounds:
+  - {fileID: 8300000, guid: 2e89a2064227f994eab21d366dc4a813, type: 3}
+  - {fileID: 8300000, guid: c4189a01502535a4d98fcef3d83d72df, type: 3}
   Speed: 4
   windMultiplier: 10
 --- !u!50 &824845326
