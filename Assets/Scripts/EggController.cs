@@ -25,12 +25,15 @@ public class EggController : MonoBehaviour
 
     public Animator playerAnimator;
 
+    public bool IsVisible {get;set;}
+
 
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         Time.timeScale = 0f;
+        this.IsVisible = true;
     }
 
     private void Update()
@@ -144,5 +147,18 @@ public class EggController : MonoBehaviour
             rigidBody.gravityScale = 1;
             rigidBody.velocity -= new Vector2(2,2);
         }
+    }
+
+    void OnBecameInvisible()
+    {
+        Debug.Log("BOULE DEBUG: Egg Became invisible");
+        IsVisible = false;
+    }
+
+
+    void OnBecameVisible()
+    {
+       Debug.Log("BOULE DEBUG: Egg Became visible");
+        IsVisible = true;
     }
 }

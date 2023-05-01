@@ -21,15 +21,18 @@ public class CameraFollow : MonoBehaviour
        this._lastKnownXPosition = followTransform.position.x;
     }
 
- 
+    bool isEggTooFarFromUs() {
+        Debug.Log("EGG DISTANCE DEBUG: " + (this.eggTransform.position.y - this.followTransform.position.y));
+        return this.eggTransform.position.y - this.followTransform.position.y >= 4;
+    }
 
     void FixedUpdate()
     {
-        if(eggTransform.position.y >= (this.initialY + this.eggUpperLimitFollow)) {
+        if(eggTransform.position.y >= (this.initialY + this.eggUpperLimitFollow) && !isEggTooFarFromUs()) {
             var test = Vector3.Lerp(this.transform.position, eggTransform.position - new Vector3(0,3.5f,0), Time.fixedDeltaTime * 3);
             this.transform.position = new Vector3(followTransform.position.x, test.y, this.transform.position.z);
         } else {
-            var initialYLerp = Mathf.Lerp(this.transform.position.y, this.initialY, Time.fixedDeltaTime * 2);
+            var initialYLerp = Mathf.Lerp(this.transform.position.y, this.followTransform.position.y, Time.fixedDeltaTime * 2);
             this.transform.position = new Vector3(followTransform.position.x, initialYLerp, this.transform.position.z);
         }
 
