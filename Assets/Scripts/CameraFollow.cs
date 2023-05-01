@@ -21,6 +21,8 @@ public class CameraFollow : MonoBehaviour
        this._lastKnownXPosition = followTransform.position.x;
     }
 
+ 
+
     void FixedUpdate()
     {
         if(eggTransform.position.y >= (this.initialY + this.eggUpperLimitFollow)) {
