@@ -686,7 +686,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   initialJumpForce: 15
   gravityOnRelease: 10
-  dashCooldown: 0.6
+  dashCooldown: 0.5
   dashDuration: 0.1
   dashPower: 2000
   groundCheckDistance: 0.2

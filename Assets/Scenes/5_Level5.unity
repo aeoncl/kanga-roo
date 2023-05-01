@@ -666,7 +666,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 7537159828896979270, guid: 8125d41b14fab4d49b4caf9539ab1e1f, type: 3}
       - {fileID: 3819898574114285073, guid: 8125d41b14fab4d49b4caf9539ab1e1f, type: 3}
-      m_AnimationSpeed: 2.0295048
+      m_AnimationSpeed: 2.097048
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -810,7 +810,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   initialJumpForce: 15
   gravityOnRelease: 10
-  dashCooldown: 0.6
+  dashCooldown: 0.5
   dashDuration: 0.1
   dashPower: 2000
   groundCheckDistance: 0.2
