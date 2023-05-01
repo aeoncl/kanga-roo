@@ -19,6 +19,11 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene("0_LevelSuccess");
     }
 
+    public static void LoadLevelSelect()
+    {
+        SceneManager.LoadScene("0_LevelSelect");
+    }
+
     public static void QuitGame()
     {
         #if UNITY_EDITOR
@@ -46,7 +51,7 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene("0_GameOver");
     }
 
-    internal static void LoadSceneByName(string nextScene)
+    public static void LoadSceneByName(string nextScene)
     {
         SceneManager.LoadScene(nextScene);
     }
