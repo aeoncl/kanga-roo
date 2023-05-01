@@ -18,12 +18,12 @@ public class IntroScript : MonoBehaviour
     private List<string> dialogue = new List<string>()
     {
         "Hey, you!",
-        "Have you ever ordered something and thought :",
+        "Have you ever ordered something and thought...",
         "“Damn, I wish my package could arrive faster”",
         "Of course you have.",
         "With FRAGILE™, the newest delivery service in town, we make that wish come true!",
         "Never again will you have to wait for days for your package to arrive.",
-        "Our personnel handle the fragile packages with the utmost care",
+        "Our personnel handle the fragile packages with the utmost care.",
         "Don’t you worry.",
         "Only 99% of our packages ever get destroyed or lost during the delivery.",
         "...",
@@ -36,7 +36,7 @@ public class IntroScript : MonoBehaviour
     void Awake()
     {
         textComponent = GetComponent<Text>();
-        textComponent.text = dialogue[0];
+        textToDraw = dialogue[0];
     }
 
     void Update()
