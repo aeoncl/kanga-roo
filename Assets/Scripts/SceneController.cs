@@ -11,6 +11,7 @@ public class SceneController : MonoBehaviour
 
     public static void LoadMainMenu()
     {
+        LevelProgressSingleton.Instance.destroyedPackages = 0;
         Time.timeScale = 1f;
         SceneManager.LoadScene("0_MainMenu");
     }    
