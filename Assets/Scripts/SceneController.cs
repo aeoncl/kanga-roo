@@ -48,7 +48,8 @@ public class SceneController : MonoBehaviour
 
     public static void LoadGameOverScene()
     {
-        SceneManager.LoadScene("0_GameOver");
+        SceneManager.LoadScene("0_GameOver", LoadSceneMode.Additive);
+        Time.timeScale = 0f;
     }
 
     public static void LoadSceneByName(string nextScene)

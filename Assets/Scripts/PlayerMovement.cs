@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundCheckDistance = 0.2f;
 
+    public AudioSource audioSource;
+
+    public AudioClip[] dashSounds;
+
     public bool Dashing
     {
         set
@@ -106,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (isDashAvaillable)
             {
+                this.audioSource.PlayOneShot(this.dashSounds[this.getDashSoundIndex()]);
                 this.dashStarted = Time.time;
                 Dashing = true;
             }
@@ -217,5 +222,11 @@ public class PlayerMovement : MonoBehaviour
         {
             this.isInWind = false;
         }
+    }
+
+        private int getDashSoundIndex() {
+        System.Random r = new System.Random();
+        int rInt = r.Next(0, this.dashSounds.Length);
+        return rInt;
     }
 }

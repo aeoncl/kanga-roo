@@ -27,7 +27,11 @@ public class EggController : MonoBehaviour
 
     public bool IsVisible {get;set;}
 
+    public AudioSource audiosource;
+    public AudioClip[] boxHitsSounds;
+    public AudioClip boxDestroyedSound;
 
+    public AudioClip truckSound;
 
     private void Awake()
     {
@@ -47,6 +51,8 @@ public class EggController : MonoBehaviour
                 rigidBody.AddForce(new Vector2(0.5f, 0.5f) * jumpPower, ForceMode2D.Impulse);
                 rigidBody.AddTorque(this.torque);
                 isLaunched = true;
+                this.audiosource.PlayOneShot(truckSound);
+
             }
 
             Debug.Log("Delta: " + (this.btnPressTimer - Time.time) + "<= timeout: -" + "compar: " + ((this.btnPressTimer - Time.time) <= this.btnPressTimeout));
@@ -91,6 +97,7 @@ public class EggController : MonoBehaviour
             rigidBody.AddForce(direction * jumpPower, ForceMode2D.Impulse);
             rigidBody.AddTorque(this.torque);
             collidesWithPlayer = false;
+            this.audiosource.PlayOneShot(this.boxHitsSounds[this.getHitSoundIndex()]);
         }
 
         if(this.isInWind) {
@@ -109,18 +116,16 @@ public class EggController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             collidesWithPlayer = true;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
         if (other.gameObject.CompareTag("Ground"))
         {
+            this.audiosource.PlayOneShot(this.boxDestroyedSound);
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
             rigidBody.bodyType = RigidbodyType2D.Static;
@@ -160,5 +165,11 @@ public class EggController : MonoBehaviour
     {
        Debug.Log("BOULE DEBUG: Egg Became visible");
         IsVisible = true;
+    }
+
+    private int getHitSoundIndex() {
+        System.Random r = new System.Random();
+        int rInt = r.Next(0, this.boxHitsSounds.Length);
+        return rInt;
     }
 }
