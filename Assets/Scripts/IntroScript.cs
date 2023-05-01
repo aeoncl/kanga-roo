@@ -13,7 +13,6 @@ public class IntroScript : MonoBehaviour
     private int fixedUpdateOffset = 0;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip audioClip;
 
     private List<string> dialogue = new List<string>()
     {
@@ -68,7 +67,7 @@ public class IntroScript : MonoBehaviour
             textComponent.text = textToDraw.Substring(0, letterIndex++);
             if (fixedUpdateOffset % 4 == 0)
             {
-                audioSource.PlayOneShot(audioClip);
+                audioSource.Play();
             }   
             fixedUpdateOffset++;
         }

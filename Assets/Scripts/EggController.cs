@@ -96,7 +96,7 @@ public class EggController : MonoBehaviour
             rigidBody.angularVelocity = 0f;
             rigidBody.AddForce(direction * jumpPower, ForceMode2D.Impulse);
             rigidBody.AddTorque(this.torque);
-            collidesWithPlayer = false;
+            doUpdate = false;
             this.audiosource.PlayOneShot(this.boxHitsSounds[this.getHitSoundIndex()]);
         }
 
